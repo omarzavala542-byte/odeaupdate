@@ -1,9 +1,6 @@
 import type { Goal, ImageFeatures, SmileAnalysis } from '@/types';
 import { extractImageFeatures } from '@/lib/imageFeatures';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
-
 export async function analyzeSmile(
   imageDataUrl: string,
   selectedGoal: Goal,
@@ -26,14 +23,10 @@ export async function analyzeSmile(
     };
   }
 
-  const apiUrl = `${SUPABASE_URL}/functions/v1/analyze-smile`;
-  const response = await fetch(apiUrl, {
+  const response = await fetch('/api/analyze-smile', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-    },
-    body: JSON.stringify({ features, selectedGoal, importance }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ image: imageDataUrl, features, selectedGoal, importance }),
   });
 
   if (!response.ok) {
