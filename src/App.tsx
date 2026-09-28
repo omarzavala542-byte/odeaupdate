@@ -159,7 +159,8 @@ function App() {
       setAnalysis(result);
       setStep('analysis');
     } catch (err) {
-      setAnalysisError(err instanceof Error ? err.message : 'Error en el análisis');
+      console.error('[v0] Error técnico en análisis:', err);
+      setAnalysisError('No pudimos completar el análisis en este momento. Inténtalo nuevamente o comunícate con nuestros especialistas.');
       setStep('analysis');
     } finally {
       setAnalysisLoading(false);
