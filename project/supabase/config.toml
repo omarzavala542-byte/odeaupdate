@@ -1,0 +1,2 @@
+[functions.analyze-smile]
+verify_jwt = false
